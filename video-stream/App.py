@@ -55,3 +55,4 @@ def watch(video_id):
     if video is None:
         return "Video not found", 404
     return render_template('watch.html', video=video)
+
