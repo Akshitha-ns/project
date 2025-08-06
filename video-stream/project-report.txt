@@ -1,0 +1,104 @@
+1.Video Streaming Platform using Flask and FFmpeg
+
+2. Objective
+To design and develop a user-friendly web application that enables users to upload, stream, and manage video content efficiently. The platform allows real-time video playback, file conversion for web compatibility, and centralized video management using a lightweight backend.
+
+3. Introduction
+The growing demand for video content has led to the development of various streaming platforms. This project aims to create a lightweight and functional streaming system suitable for personal use or small-scale video hosting. The application provides essential features such as:
+
+Video upload and storage
+
+Format conversion using FFmpeg
+
+Web-based video streaming
+
+Basic metadata management via SQLite
+
+It can be optionally extended to support AWS S3 for cloud-based video storage.
+
+4. Technologies Used
+Technology	Purpose
+Python	Core programming language
+Flask	Web framework for handling routing, templates, and server
+SQLite	Lightweight database to store video metadata
+FFmpeg	Converts uploaded videos to MP4 format
+HTML/CSS	User interface via Flask templates
+AWS S3 (Optional)	Cloud video storage
+
+5. System Architecture
+Modules:
+
+Frontend (HTML/CSS, Flask Templates)
+
+Upload page
+
+Video list page
+
+Video watch page
+
+Backend (Flask + Python)
+
+Handles routing, file upload, video conversion, database operations
+
+Database (SQLite)
+
+Stores: video ID, title, filename, upload timestamp
+
+Storage
+
+Local storage under static/uploads/ (or AWS S3 if enabled)
+
+6. Key Features
+🎞️ Video Upload:
+Users can upload videos in any format. Files are saved to the server and converted to .mp4 format using FFmpeg.
+
+📺 Video Streaming:
+Videos are streamed in-browser using HTML5 <video> tags.
+
+🗂️ Dashboard/List View:
+Shows all uploaded videos with links to play them.
+
+🕒 Metadata Storage:
+Video titles, filenames, and upload times are stored in SQLite for management.
+
+☁️ (Optional) AWS S3 Support:
+Videos can be uploaded to S3 instead of local storage for scalability.
+
+7. Code Summary
+app.py: Main Flask server with routes for uploading, viewing, and listing videos.
+
+config.py: Stores AWS/local path configs and DB path.
+
+db_init.py: Creates the SQLite table structure.
+
+templates/: HTML templates for rendering pages.
+
+static/uploads/: Stores converted videos for playback.
+
+8. Challenges Faced
+⚙️ Ensuring all uploaded formats convert smoothly to .mp4
+
+💾 Managing large video files with limited server space
+
+☁️ Optional AWS integration for cloud storage
+
+🔐 Future plans include authentication and access controls
+
+9. Future Enhancements
+User authentication (login/signup)
+
+Video search and tagging
+
+Video comments/likes
+
+Dashboard analytics
+
+AWS S3 and CDN integration
+
+Support for live streaming via WebRTC or HLS
+
+10. Conclusion
+This project demonstrates how a full-stack video streaming solution can be built using Flask, SQLite, and FFmpeg. It can serve as a foundational prototype for more advanced platforms and can be scaled up using cloud technologies and modern frontend frameworks.
+
+
+
