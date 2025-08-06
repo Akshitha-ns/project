@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><title>Video Library</title></head>
+<body>
+    <h1>All Videos</h1>
+    <a href="/upload">Upload New Video</a>
+    <ul>
+        {% for video in videos %}
+        <li>
+            <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DacBJsjCqgtM&psig=AOvVaw2kXL0AOrNURPS3DFUZ3hhJ&ust=1754571609299000&source=images&cd=vfe&opi=89978449&ved=0CAYQrpoMahcKEwjYz93gnvaOAxUAAAAAHQAAAAAQBA">video</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
