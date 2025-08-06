@@ -1,0 +1,83 @@
+Smart Home Automation
+1. Introduction
+The Smart Home Automation System is a web-based application designed to control and schedule simulated smart home devices. It provides a RESTful API for device management and task scheduling, along with a simple dashboard for user interaction. The system's core functionality includes real-time device control and a background scheduler to automate tasks at specified times.
+
+2. Project Goals and Objectives
+The primary goals of this project were to:
+
+Develop a backend API using Flask to manage smart devices.
+
+Implement a persistent storage solution using SQLite for scheduling tasks.
+
+Create a background scheduler thread to execute tasks at their designated times without blocking the main application.
+
+Provide a basic web interface for monitoring and controlling devices.
+
+Demonstrate key concepts of web development, database management, and multithreading in Python.
+
+3. System Architecture
+The application follows a client-server architecture.
+
+Frontend (Client): A basic HTML file (index.html) serves as a placeholder for a user interface. It would typically use JavaScript to interact with the backend API.
+
+Backend (Server): The core of the system, built with Flask. It handles all incoming requests from the client.
+
+Database: SQLite is used as a lightweight, file-based database (smarthome.db) to store scheduled tasks.
+
+Scheduler: A separate daemon thread runs in the background. It continuously checks the database for pending tasks and executes them if their scheduled time has passed.
+
+Simulated Devices: A Python dictionary (simulated_devices) acts as a mock representation of various smart devices (lights, fans, locks, thermostat), storing their current status in memory.
+
+4. Technical Implementation
+4.1. Core Components
+Flask App (app): The main Flask application instance that defines the routes and handles HTTP requests.
+
+Simulated Devices (simulated_devices): A dictionary mapping device IDs to their attributes, such as name and status. This allows for testing the logic without physical hardware.
+
+SQLite Database (smarthome.db):
+
+The schedules table stores details of all scheduled tasks, including device_id, action, value, schedule_time, and a flag (is_executed) to prevent re-execution.
+
+Functions like init_db(), add_schedule_task(), and get_pending_schedules() manage database interactions.
+
+Device Control Logic (control_device): This function encapsulates the core logic for changing a device's state based on the requested action and value. It handles different device types and their specific commands (e.g., on, off, locked, unlocked, set_temp).
+
+Scheduler Thread (scheduler_loop): A dedicated background thread that runs an infinite loop. It polls the database every second for scheduled tasks that are due, executes them via control_device(), and then marks them as executed in the database.
+
+4.2. API Endpoints
+The application exposes a set of RESTful API endpoints:
+
+Endpoint	Method	Description
+/	GET	Renders the basic dashboard page (index.html).
+/devices	GET	Returns a JSON object of all simulated devices and their current states.
+/control	POST	Controls a specific device immediately. Requires device_id, action, and optional value.
+/schedule	POST	Schedules a task for a future time. Requires device_id, action, schedule_time, and optional value.
+/schedules	GET	Returns a list of all pending scheduled tasks.
+/schedule/<task_id>	DELETE	Deletes a scheduled task by its ID.
+
+Export to Sheets
+4.3. Data Flow
+A user submits a scheduling request via a POST request to /schedule.
+
+The Flask route validates the input and calls add_schedule_task() to store the task in the schedules table.
+
+The scheduler_thread continuously runs scheduler_loop().
+
+The loop calls get_pending_schedules() to fetch tasks from the database.
+
+When current_time is greater than or equal to schedule_time, the scheduler calls control_device() to update the device state in simulated_devices.
+
+The scheduler then calls mark_schedule_executed() to update the database, preventing the task from being run again.
+
+5. Future Enhancements
+User Authentication: Implement a secure login system to protect device control and scheduling from unauthorized access.
+
+Full-featured Frontend: Develop a dynamic and responsive web-based dashboard using a framework like React or Vue.js to interact with all API endpoints.
+
+Advanced Scheduling: Add support for recurring tasks (e.g., daily, weekly schedules) and more complex triggers (e.g., based on sensor data).
+
+Real Device Integration: Replace the simulated device dictionary with logic that communicates with real hardware via protocols like MQTT or HTTP requests.
+
+Logging and History: Implement a robust logging system to record all device actions, executions, and errors for auditing purposes.
+
+Security: Ensure API requests are secured with mechanisms like SSL/TLS and API keys.
